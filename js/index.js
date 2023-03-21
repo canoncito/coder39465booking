@@ -15,7 +15,7 @@ const mexico = new Pasaje(3,'mexico',147)
 const japon = new Pasaje(4,'japon',940)
 
 
-// Guardo los pasajes,hoteles y paquetes en su respectivo arreglo
+// Guardo los pasajes en su respectivo arreglo
 const pasajes = [miami,madrid,mexico,japon]
 console.log(pasajes)
 
