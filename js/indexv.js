@@ -13,7 +13,7 @@ const pasajes = [
     },
     {
         "id" : 2,
-        "img": "./img/madrid.jpg",
+        "img": "./img/mexico.jpg",
         "nombre": "Cancun",
         "precioxpersona": 147,
         "stock": 25
@@ -27,43 +27,43 @@ const pasajes = [
     },
     {
         "id" : 4,
-        "img": "./img/.jpg'",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Madrid",
         "precioxpersona": 125,
         "stock": 10
     },
     {
         "id" : 5,
-        "img": "./img/.jpg",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Sichuan",
         "precioxpersona": 1873,
         "stock": 3
     },
     {
         "id" : 6,
-        "img": "./img/.jpg",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Shenzen",
         "precioxpersona": 956,
         "stock": 40
     },
     {
         "id" : 7,
-        "img": "./img/.jpg",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Punta del este",
         "precioxpersona": 1055,
         "stock": 55
     },
     {
         "id" : 8,
-        "img": "./img/.jpg",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Toronto",
         "precioxpersona": 1630,
         "stock": 4
     },
     {
         "id" : 9,
-        "img": "./img/.jpg",
-        "nombre": "Miami",
+        "img": "./img/japon.jpg",
+        "nombre": "Budapest",
         "precioxpersona": 830,
         "stock": 15
     }
