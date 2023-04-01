@@ -1,66 +1,191 @@
-//creo clase pasaje
+// Recupero del DOM
+const divPasajes = document.getElementById('divPasajes');
 
-class Pasaje{
-    constructor(id,nombre,precio){
-        this.id = id
-        this.nombre = nombre
-        this.precio = precio
+// Datos de pasajes en formato json
+
+const pasajes = [
+    {
+        "id" : 1,
+        "img": "./img/miami.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 400,
+        "stock": 35
+    },
+    {
+        "id" : 2,
+        "img": "./img/madrid.jpg",
+        "nombre": "Cancun",
+        "precioxpersona": 147,
+        "stock": 25
+    },
+    {
+        "id" : 3,
+        "img": "./img/japon.jpg",
+        "nombre": "Tokio",
+        "precioxpersona": 940,
+        "stock": 5
+    },
+    {
+        "id" : 4,
+        "img": "./img/.jpg'",
+        "nombre": "Miami",
+        "precioxpersona": 125,
+        "stock": 10
+    },
+    {
+        "id" : 5,
+        "img": "./img/.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 1873,
+        "stock": 3
+    },
+    {
+        "id" : 6,
+        "img": "./img/.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 956,
+        "stock": 40
+    },
+    {
+        "id" : 7,
+        "img": "./img/.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 1055,
+        "stock": 55
+    },
+    {
+        "id" : 8,
+        "img": "./img/.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 1630,
+        "stock": 4
+    },
+    {
+        "id" : 9,
+        "img": "./img/.jpg",
+        "nombre": "Miami",
+        "precioxpersona": 830,
+        "stock": 15
     }
+]
+
+pasajes.forEach(vuelo=>{
+
+    divPasajes.innerHTML += `<div class="card cardVuelo text-center">
+    <div class="card-body">
+    <img class="vuelo-img rounded mx-auto d-block" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}">
+    <h5 class="card-title">${vuelo.nombre}</h5>
+    <p class="card-text">USD ${vuelo.precioxpersona}</p>
+    <button id=${vuelo.id} class='btn btn-info'>AGREGAR</button>
+    </div>
+    </div>`
+})
+
+
+// Guardo productos en el carrito
+const carrito= []
+// Creo la funcion guardar en cada boton
+const botonesAgregar = document.querySelectorAll('.btn-info')
+botonesAgregar.forEach(boton=>{
+    boton.onclick = ()=>{
+        // const pasaje = pasajes.find(v=v.id===boton.id)
+         const pasaje = pasajes.find(vuelo=>vuelo.id ===parseInt(boton.id))
+         
+         const pasajeCarrito = {
+            id: pasaje.id,
+            nombre: pasaje.nombre,
+            img: pasaje.img,
+            precioxpersona: pasaje.precioxpersona,
+            cantidad: 1
+         }
+
+         const vueloEnCarrito = carrito.find(vuelo=>vuelo.id === pasajeCarrito.id)
+         if(!vueloEnCarrito)
+         {
+            carrito.push(pasajeCarrito)
+         } else{
+            vueloEnCarrito.cantidad++
+         }
+
+        //  
+         console.log(carrito)
+        
+    }
+})
+
+
+// Boton finalizar la compra
+
+const botonFinalizar = document.querySelector('#finalizar')
+
+const thead = document.querySelector('#thead')
+const tbody = document.querySelector('#tbody')
+const parrafoTotal = document.querySelector('#total')
+
+
+botonFinalizar.onclick = ()=>{
+    thead.innerHTML = 
+    `<tr>
+        <th scope="col"></th>
+        <th scope="col">Destino</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Subtotal</th>
+    </tr>`
+
+let totalCompra = 0
+carrito.forEach(vuelo => {
+    totalCompra+= vuelo.cantidad*vuelo.precioxpersona
+    tbody.innerHTML +=
+    `<tr>
+      <td><img class="vuelo-miniatura" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}"></td>
+      <td class= "text-center">${vuelo.nombre}</td>
+      <td class= "text-center">${vuelo.cantidad}</td>
+      <td class= "text-center">${vuelo.cantidad*vuelo.precioxpersona}</td>
+    </tr>`
+})
+ localStorage.setItem('carrito', JSON.stringify(carrito));
+ parrafoTotal.innerText = `El total de la compra es:    USD ${totalCompra}`
+ 
 }
 
-// Agrego datos a mi objeto pasaje
-const miami = new Pasaje(1,'miami',550)
-const madrid = new Pasaje(2,'madrid',830)
-const mexico = new Pasaje(3,'mexico',147)
-const japon = new Pasaje(4,'japon',940)
+const recuperarCarrito = localStorage.getItem('carrito')
+const carritoMostrar = JSON.parse(recuperarCarrito) 
 
-
-// Guardo los pasajes,hoteles y paquetes en su respectivo arreglo
-const pasajes = [miami,madrid,mexico,japon]
-console.log(pasajes)
-
-
-let pasajeElegido = prompt('Seleccione la opcion deseada a donde quiera viajar: \n\n                    1.- Miami \n                    2.- Madrid \n                    3.- Mexico\n                    4.- Japon \n\n Escriba exit si desea salir del programa')
-
-let seguirComprando = true
-// Creo un array vacio para ir almacenando los pasajes comprados
-const carritoPasaje = [] 
-
-
-while(seguirComprando === true){
-    const pasaje = pasajes.find(pasaje=>pasaje.nombre === pasajeElegido.toLowerCase().trim())
-    
-    //GUARDAR PRODUCTO EN CARRITO O PREGUNTARLE AL USUARIO UN VUELO EXISTENTE
-    if(pasaje){ //Comparo si la variable es undefined
-        carritoPasaje.push(pasaje)
-    }else{
-        pasajeElegido = prompt('Seleccione la opcion correcta: \n\n                    1.- Miami \n                    2.- Madrid \n                    3.- Mexico\n                    4.- Japon \n\n Escriba exit si desea salir del programa')
-        continue
-    }
-    
-    let cantPasajes = parseInt(prompt('Ingrese la cantidad de pasajes que desea comprar para ' +pasaje.nombre))
-    if(cantPasajes >0){
-        alert('Seleccionaste comprar '+cantPasajes+ ' para viajar a '+pasaje.nombre)
-        pasaje.cantidad = cantPasajes
-        const sigueComprando = prompt('Desea seguir comprando? si-no').toLowerCase().trim()
-        if (sigueComprando === 'si'){
-            pasajeElegido = prompt('Seleccione la opcion deseada a donde quiera viajar: \n\n                    1.- Miami \n                    2.- Madrid \n                    3.- Mexico\n                    4.- Japon \n\n Escriba exit si desea salir del programa')
-        }else{
-            seguirComprando = false
+console.log(recuperarCarrito)
+// Prueba para ver si muestra en vivo
+   
+        verCarrito.onclick = ()=>{
+            thead.innerHTML = 
+            `<tr>
+                <th scope="col"></th>
+                <th scope="col">Destino</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+            </tr>`
+        
+        let totalCompra = 0
+        carritoMostrar.forEach(vuelo => {
+            totalCompra+= vuelo.cantidad*vuelo.precioxpersona
+            tbody.innerHTML +=
+            `<tr>
+              <td><img class="vuelo-miniatura" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}"></td>
+              <td class= "text-center">${vuelo.nombre}</td>
+              <td class= "text-center">${vuelo.cantidad}</td>
+              <td class= "text-center">${vuelo.cantidad*vuelo.precioxpersona}</td>
+            </tr>`
+        })
+        
+         parrafoTotal.innerText = `El total de la compra es:    USD ${totalCompra}`    
         }
-    }else{
-        alert('Ingrese una cantidad valida de pasajes mayores o iguales a 1')
-    }
     
-}
+    
 
-console.log(carritoPasaje)
-let totalCompra =0
+    
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    //     mostrarCarrito();
+    //     document.querySelector("#activarFuncion").click(procesarPedido);
+    //   });
 
-for (const pasaje of carritoPasaje) {
-    totalCompra = totalCompra + pasaje.precio * pasaje.cantidad
-}
-
-alert('El total de su compra es:    ' + totalCompra + ' USD')
 
 
