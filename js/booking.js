@@ -82,6 +82,33 @@ pasajes.forEach(vuelo=>{
 })
 
 
+
+// Traigo usuario y tambien la seccion para mostrar su contenido dependiendo el tipo de rol del usuario 
+ const usuarioCliente = document.querySelector(".cliente");
+ const usuarioAdmin = document.querySelector(".admin");
+ const usuarioLogueado = document.querySelector(".user-login");
+
+//  Traigo del storage el user logueado para colocarlo en el dashboard y comprobar el tipo de usuario
+
+const user = localStorage.getItem('userLogueado')
+const userParseado = JSON.parse(user)
+
+
+
+usuarioLogueado.innerText = userParseado.toUpperCase()
+
+console.log(usuarioLogueado.textContent)
+
+// Mostrar seccion para permisos que tiene el usuario
+if(usuarioLogueado.textContent === 'admin')
+{
+    console.log(usuarioLogueado.textContent)
+    usuarioCliente.remove()
+}else{
+     usuarioAdmin.remove()
+}
+
+
 // Guardo productos en el carrito
 const carrito= []
 // Creo la funcion guardar en cada boton

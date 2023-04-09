@@ -1,0 +1,28 @@
+.form-signin{
+    max-width: 330px ;
+    padding: 15px ;
+}
+
+html,body,main{
+    height: 100%;
+}
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.border-login{
+    border: 4px solid whitesmoke;
+    border-radius: 20px;
+    padding: 50px 30px 50px 30px;
+}
+body{
+    background-image: url(/img/imagen-fondo2.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.form-login{
+    color: white;
+}

@@ -6,32 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Linkeo cdn de boostrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Estilo de css propio -->
-    <link rel="stylesheet" href="./css/index.css">
-    <title>Bookon | Pagina oficial | Los mejores vueltos</title>
+    <!-- Linkeo mi css de login -->
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Document</title>
 </head>
-<body>
-  <h2 class="text-center pt-4 mb-5">Bienvenido</h2>
-  <div class="container">
-    <div class="row ">
-      <div class="col text-center">
-        <div class="row justify-content-center" id="divPasajes"></div>
-        <button id="finalizar" class="btn-success mt-2 mb-4"> AÑADIR PASAJE</button>
-        <button id="verCarrito" class="btn-success mt-2 mb-4">VER CARRITO DE COMPRAS</button>
-      </div>
-      <div class="row divCarrito">
-        <div class="col col-carrito">
-          <table class="table table-borderless">
-            <thead id="thead">
-            </thead>
-            <tbody id="tbody">
-            </tbody>
-          </table>
-        <p id="total"></p>
-        </div>  
-  </div>
-    <!-- Link a mi js -->
-    <script src="./js/booking.js"></script>
-   
-  </body>
+<body class="text-center">
+      <main>
+        <div class="border-login" >
+            <form class="form-login" id="formLogin">
+                <img class="mb-4" src="/img/bootstrap-logo.svg" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 fw-normal">Iniciar sesion</h1>
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="user" placeholder="Ingrese su usuario">
+                  <label for="floatingInput">Usuario</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="password" placeholder="Ingrese su password">
+                  <label for="floatingPassword">Password</label>
+                </div>
+                <!-- <input class="w-100 btn btn-lg btn-primary" type="submit" value="Ingresar"> -->
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+              </form>
+        </div>
+      </main>
+      <!-- Incluyo mi js de login -->
+  <script src="/js/login.js"></script>
+  <!-- Incluyo cdn de sweetalert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
 </html>

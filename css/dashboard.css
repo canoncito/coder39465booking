@@ -1,0 +1,108 @@
+.vuelo-img{
+width: 300px;
+height: 200px;
+}
+
+.cardVuelo{
+    
+    margin: 10px;
+}
+
+.card-title{
+    margin-top: 20px;
+}
+
+.vuelo-miniatura{
+    width: 50px;
+    height: 30px;
+}
+
+/* Tamano letra y efecto hover sobre el nav */
+
+ul li{
+    font-size: 20px;
+    position: relative;
+    display: block;
+    transition: .5s;
+}
+
+ul li::after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 3px;
+    top: 100%;
+    left: 0;
+    transition: transform .5s;
+    transform: scaleX(0);
+    transform-origin: right;
+}
+
+ul li:hover{
+    color: red;
+}
+
+ul li:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Efecto de tipeo en titulo */
+
+.typing{
+    overflow: hidden;
+    border-right: 0.15em solid crimson;
+    white-space: nowrap;
+    letter-spacing: 2px;
+    animation: typing 3.5s steps(30,end)
+    infinite,
+    blink 0.75s step-end infinite;
+}
+/* Efecto de tipeo */
+@keyframes typing{
+    from{
+        width: 0;
+    }
+    to{
+        width: 100%;
+    }
+}
+
+/* Efecto de cursor tipeando */
+@keyframes blink{
+    from,
+    to{
+        border-color: transparent;
+    }
+    50%{
+        border-color:rgb(204, 191, 194);
+    }
+}
+
+.titulo-logo a{
+    width: 250px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.titulo-logo a h1{
+    padding-left: 20px;
+}
+
+/* Tamano del logo */
+.titulo-logo a img{
+    width: 50px;
+    height: 40px;
+}
+
+/* acomodo nombre de usuario con menu */
+
+.div-usuario{
+    margin-right: 50px;
+}
+
+.div-usuario p{
+    font-size: 25px;
+    color: whitesmoke;
+}
