@@ -80,7 +80,7 @@ ul li:hover::after{
 }
 
 .titulo-logo a{
-    width: 250px;
+    width: 350px;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -105,4 +105,33 @@ ul li:hover::after{
 .div-usuario p{
     font-size: 25px;
     color: whitesmoke;
+}
+
+/* CSS PARA LAS LISTAS TRAIDAS DE LA API */
+ul li{
+    list-style: none;
+}
+
+
+ul li img{
+    width: 30%;
+    height: 30%;
+}
+
+.div-acordion{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.accordion-shop{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.accordion-item{
+    margin-top: 10px;
 }

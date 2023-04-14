@@ -69,17 +69,75 @@ const pasajes = [
     }
 ]
 
-pasajes.forEach(vuelo=>{
+// pasajes.forEach(vuelo=>{
 
-    divPasajes.innerHTML += `<div class="card cardVuelo text-center">
-    <div class="card-body">
-    <img class="vuelo-img rounded mx-auto d-block" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}">
-    <h5 class="card-title">${vuelo.nombre}</h5>
-    <p class="card-text">USD ${vuelo.precioxpersona}</p>
-    <button id=${vuelo.id} class='btn btn-info'>AGREGAR</button>
+//     divPasajes.innerHTML += `<div class="card cardVuelo text-center">
+//     <div class="card-body">
+//     <img class="vuelo-img rounded mx-auto d-block" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}">
+//     <h5 class="card-title">${vuelo.nombre}</h5>
+//     <p class="card-text">USD ${vuelo.precioxpersona}</p>
+//     <button id=${vuelo.id} class='btn btn-info'>AGREGAR</button>
+//     </div>
+//     </div>`
+// })
+
+getProducts();
+displayProducts()
+
+
+//Traigo para probar mis productos
+async function getProducts() {
+    try {
+      const response = await fetch('https://dummyjson.com/products');
+      const products = await response.json();
+      return products;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  async function displayProducts() {
+    const products = await getProducts();
+    const productList = document.getElementById('lista');
+    let count = 0; // Variable para contar la cantidad de productos
+  
+  
+    products.products.forEach(product => {
+      const listItem = document.createElement('li');
+      count++; // Incrementamos la cantidad de productos
+      const id = `product-${count}`; // Creamos un id único para el producto
+    listItem.innerHTML = `
+    
+    <div class="accordion" id="accordionExample"  style="width: 600px;">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed boton-acordion" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">
+        <div class="div-acordion"><img src=${product.images[0]}> <h5 class="card-header">${product.title}</h5> <p class="card-text">$${product.price}</p></div>
+        </button>
+      </h2>
+      
+      <div id="${id}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body accordion-shop">
+          <h5 class="card-title">${product.description}</h5>
+          <input type="number" class="form-control quantity-input" style="width: 100px; margin-right: 10px;" value="1" min="1" max=${product.stock}>
+          <button type="button" class="btn btn-primary btn-add-cart">Comprar</button>
+        </div>
+      </div>
     </div>
-    </div>`
-})
+
+
+      
+    `;
+      productList.appendChild(listItem);
+    });
+  }
+  
+//   const btnLoad = document.getElementById('boton');
+//   console.log(btnLoad)
+//   btnLoad.addEventListener('click', displayProducts);
+
+
+
 
 
 
@@ -95,7 +153,7 @@ const userParseado = JSON.parse(user)
 
 
 
-usuarioLogueado.innerText = userParseado.toUpperCase()
+usuarioLogueado.innerText = userParseado
 
 console.log(usuarioLogueado.textContent)
 

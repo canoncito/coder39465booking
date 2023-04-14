@@ -60,7 +60,14 @@ function validateUser(e)
         window.location.href = 'dashboard.html'
         console.log('user correcto')
     }else{
-        alert('user o pass incorrectos, verifique los datos ingresados')
+        // alert('user o pass incorrectos, verifique los datos ingresados')
+        Toastify({
+            text: 'Error de user o password',
+            duration: '4000',
+            style: {
+                background: "red",
+              },
+        }).showToast()
     }
 }
 
@@ -71,13 +78,15 @@ function validateUser(e)
 function verificarUsuario(user,pass){
     const foundUser = consUsers.find(u => u.nombre === user)
     const foundPass = consUsers.find(p => p.password === pass)
-    console.log(foundUser)
+    // console.log(foundUser)
      if(foundUser && foundPass){
         // Los traigo separado porque no quiero que me traiga la clave ya que se veria en el storage en un proyecto con base de datos
          localStorage.setItem('userLogueado',JSON.stringify(foundUser.nombre))
+         
           //    VER SI HACE FALTA PASAR EL TIPO DE USUARIO TAMBIEN O NO    
          //  localStorage.setItem('userTipo', JSON.stringify(foundUser.tipo))
-         console.log(foundUser)
+         
+        
          return true
      }else{
          return false
