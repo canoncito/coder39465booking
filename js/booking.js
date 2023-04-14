@@ -69,23 +69,11 @@ const pasajes = [
     }
 ]
 
-// pasajes.forEach(vuelo=>{
-
-//     divPasajes.innerHTML += `<div class="card cardVuelo text-center">
-//     <div class="card-body">
-//     <img class="vuelo-img rounded mx-auto d-block" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}">
-//     <h5 class="card-title">${vuelo.nombre}</h5>
-//     <p class="card-text">USD ${vuelo.precioxpersona}</p>
-//     <button id=${vuelo.id} class='btn btn-info'>AGREGAR</button>
-//     </div>
-//     </div>`
-// })
-
-getProducts();
 displayProducts()
+displayCategories()
 
 
-//Traigo para probar mis productos
+//Traigo mis productos de la api
 async function getProducts() {
     try {
       const response = await fetch('https://dummyjson.com/products');
@@ -95,28 +83,39 @@ async function getProducts() {
       console.error(error);
     }
   }
+
+// Traigo los productos dependiendo la categoria
+
+async function getProductsofCategory() {
+  try {
+    const response = await fetch(`https://dummyjson.com/products/category/${selectedCategories}`);
+    const products = await response.json();
+    return products;
+  } catch (error) {
+    console.error(error);
+  }
+}
   
+
+
   async function displayProducts() {
     const products = await getProducts();
     const productList = document.getElementById('lista');
-    let count = 0; // Variable para contar la cantidad de productos
-  
-  
+
     products.products.forEach(product => {
       const listItem = document.createElement('li');
-      count++; // Incrementamos la cantidad de productos
-      const id = `product-${count}`; // Creamos un id único para el producto
+      
     listItem.innerHTML = `
     
     <div class="accordion" id="accordionExample"  style="width: 600px;">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed boton-acordion" type="button" data-bs-toggle="collapse" data-bs-target="#${id}" aria-expanded="false" aria-controls="${id}">
+        <button class="accordion-button collapsed boton-acordion" type="button" data-bs-toggle="collapse" data-bs-target="#${product.id}" aria-expanded="false" aria-controls="${product.id}">
         <div class="div-acordion"><img src=${product.images[0]}> <h5 class="card-header">${product.title}</h5> <p class="card-text">$${product.price}</p></div>
         </button>
       </h2>
       
-      <div id="${id}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div id="${product.id}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body accordion-shop">
           <h5 class="card-title">${product.description}</h5>
           <input type="number" class="form-control quantity-input" style="width: 100px; margin-right: 10px;" value="1" min="1" max=${product.stock}>
@@ -124,18 +123,123 @@ async function getProducts() {
         </div>
       </div>
     </div>
-
-
-      
     `;
       productList.appendChild(listItem);
     });
   }
   
-//   const btnLoad = document.getElementById('boton');
-//   console.log(btnLoad)
-//   btnLoad.addEventListener('click', displayProducts);
 
+
+let selectedCategories = []; // array global para guardar ids de las categorias
+
+// Cargo las categorias que tienen los productos para los filtros
+async function displayCategories(){
+  const categories = await getProducts()
+  const uniqueCategories = new Set(categories.products.map(categoria => categoria.category));
+  console.log(categories)
+  const categoriesList = document.getElementById('check-categories')
+  uniqueCategories.forEach(category => {
+    const categoryItem = document.createElement('div')
+    categoryItem.innerHTML = `
+                <div class="form-check" id="check-categories">
+                  <input class="form-check-input checkbox-category" type="checkbox" value="" id="${category}" >
+                  <label class="form-check-label label-category" for="flexCheckDefault">
+                  ${category}
+                  </label>
+                </div>
+    
+    `;
+    categoriesList.appendChild(categoryItem)
+   // agrego evento 'click' a cada elemento 'input' del checkbox
+   const checkbox = categoryItem.querySelector('input[type="checkbox"]');
+  //  console.log(selectedCategories)
+   checkbox.addEventListener('click', function() {
+     if (this.checked) {
+       selectedCategories.push(this.id); // si selecciono el checkbox lo guardo en el array global
+       getProductsofCategory()
+      //  console.log(selectedCategories)
+     } else {
+       const index = selectedCategories.indexOf(this.id);
+       if (index > -1) {
+         selectedCategories.splice(index, 1); // si lo deselecciono lo saco del array para la busqueda
+       }
+     }
+     console.log(selectedCategories);
+     
+   });
+   
+  })
+  
+  }
+ 
+  console.log(selectedCategories);
+  // console.log(selectedCategories);
+  
+  // console.log(selectedCategories)
+
+// function arraycheckbox(){
+  
+//por cada categoria que obtengo de la api los traspaso a mi objeto arraycheckbox para trabajarlos 
+// for (let i = 0; i < checkbox.length; i++){
+  
+//     const pasajeCheckbox = {
+//       id: checkbox[i].id
+//     }
+     
+      
+      
+   
+//    }
+//    objectCheckbox.push(pasajeCheckbox)
+//   //  console.log(objectCheckbox)
+// }
+
+ //creo un array temporal para guardar mis categorias
+ 
+
+
+
+ 
+  // console.log(checkbox)
+
+  // for (let i = 0; i < checkbox.length; i++){
+  //   const chequeo = checkbox[i].id
+    
+  // return checkbox;
+  // 
+  // arraycheckbox()
+
+
+
+  // console.log(arraycheckbox());
+
+
+  // const objectCheckbox = []
+
+  // function arraycheckbox(){
+  // //   const checkbox = document.querySelectorAll('.checkbox-category')
+  // //   for (let i = 0; i < checkbox.length; i++){
+  
+  // //          const pasajeCheckbox = {
+  // //            id: checkbox[i].id
+  // //          }
+
+  // //          objectCheckbox.push(pasajeCheckbox);
+    
+  // // }
+  // // return objectCheckbox;
+  // console.log(categoryItem.innerText)
+  // }
+
+
+  // objectCheckbox.forEach(leer =>{
+  //   console.log(leer.id)
+  // })
+  // console.log(objectCheckbox[])
+  // console.log(pasajeCheckbox.id)
+   
+// const checkbox = document.getElementById('smartphones')
+// console.log(checkbox)
 
 
 

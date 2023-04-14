@@ -135,3 +135,36 @@ ul li img{
 .accordion-item{
     margin-top: 10px;
 }
+
+/* CSS para el nav vertical de filtros */
+
+
+.div-nav-vertical{
+   border: 5px solid #0D6EFD;
+   border-top-right-radius: 10px;
+   border-top-left-radius: 10px;
+   border-bottom-right-radius: 10px;
+   border-bottom-left-radius: 10px;
+   margin-top: 100%;
+   padding-left: 40px;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   background-color: bisque;
+}
+
+.categories-title{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid black;
+    width: 100%;
+}
+
+.form-check{
+   padding-left: 0;
+  
+}
+
+.form-check-input{
+    margin-left: -20px;
+}
