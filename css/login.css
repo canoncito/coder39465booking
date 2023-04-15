@@ -18,7 +18,7 @@ main{
     padding: 50px 30px 50px 30px;
 }
 body{
-    background-image: url(../img/imagen-fondo2.jpg);
+    background-image: url(img/imagen-fondo2.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
