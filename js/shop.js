@@ -19,7 +19,7 @@ async function getProducts() {
   }
 
 // Traigo los productos dependiendo la categoria
-// let allProducts = []
+
 
 async function getProductsofCategory() {
   try {
