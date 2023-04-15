@@ -50,7 +50,7 @@ async function getProductsofCategory() {
     <div class="accordion" id="accordionExample"  style="width: 600px;">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed boton-acordion" type="button" data-bs-toggle="collapse" data-bs-target="#${product.id}" aria-expanded="false" aria-controls="${product.id}">
+        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#${product.id}" aria-expanded="false" aria-controls="${product.id}">
         <div class="div-acordion"><img src=${product.images[0]}> <h5 class="card-header">${product.title}</h5> <p class="card-text">$${product.price}</p></div>
         </button>
       </h2>
@@ -59,7 +59,7 @@ async function getProductsofCategory() {
         <div class="accordion-body accordion-shop">
           <h5 class="card-title">${product.description}</h5>
           <input type="number" class="form-control quantity-input" style="width: 100px; margin-right: 10px;" value="1" min="1" max=${product.stock}>
-          <button type="button" class="btn btn-primary btn-add-cart  data-product-id="${product.id}" data-product-id="${product.id}" data-product-title="${product.title}" data-product-price="${product.price}" data-product-image="${product.images[0]}" >Comprar</button>
+          <button type="button" class="btn btn-primary btn-add-cart  data-product-id="${product.id}" data-product-id="${product.id}" data-product-title="${product.title}" data-product-price="${product.price}" data-product-image="${product.images[0]}" >Añadir</button>
         </div>
       </div>
     </div>
@@ -68,6 +68,9 @@ async function getProductsofCategory() {
       productList.appendChild(listItem);
     });
    
+   
+ 
+
     const btnBuy = document.querySelectorAll('.btn-add-cart')
     // console.log(btnBuy)
     btnBuy.forEach(btn => {
@@ -203,7 +206,7 @@ async function displayProductsofCategory(){
   <div class="accordion" id="accordionExample"  style="width: 600px;">
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button collapsed boton-acordion" type="button" data-bs-toggle="collapse" data-bs-target="#${product.id}" aria-expanded="false" aria-controls="${product.id}">
+      <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#${product.id}" aria-expanded="false" aria-controls="${product.id}">
       <div class="div-acordion"><img src=${product.images[0]}> <h5 class="card-header">${product.title}</h5> <p class="card-text">$${product.price}</p></div>
       </button>
     </h2>
@@ -212,7 +215,7 @@ async function displayProductsofCategory(){
       <div class="accordion-body accordion-shop">
         <h5 class="card-title">${product.description}</h5>
         <input type="number" class="form-control quantity-input" style="width: 100px; margin-right: 10px;" value="1" min="1" max=${product.stock}>
-        <button type="button" class="btn btn-primary btn-add-cart  data-product-id="${product.id}" data-product-id="${product.id}" data-product-title="${product.title}" data-product-price="${product.price}" data-product-image="${product.images[0]}" >Comprar</button>
+        <button type="button" class="btn btn-primary btn-add-cart  data-product-id="${product.id}" data-product-id="${product.id}" data-product-title="${product.title}" data-product-price="${product.price}" data-product-image="${product.images[0]}" >Añadir</button>
       </div>
     </div>
   </div>
@@ -296,10 +299,14 @@ const btnBuy = document.querySelectorAll('.btn-add-cart')
         <button type="button" class="btn btn-success btn-vaciar">Vaciar carrito</button>`
         //Accedo al boton compra
         const compra = document.querySelector('.btn-compra')
+        const vaciar = document.querySelector('.btn-vaciar')
         compra.addEventListener("click",alertaCompra)
+        vaciar.addEventListener("click",vacio)
         // window.location.reload()
  }
 
+
+ //pongo alerta para la compra de productos
 function alertaCompra(){
   
   Swal.fire({
@@ -315,7 +322,6 @@ function alertaCompra(){
     tfoot.innerHTML = ''
     localStorage.removeItem('carrito')
       window.location.reload();
-    
   });
   // Elimino la clave del carrito del localstorage
  
@@ -328,14 +334,29 @@ function alertaCompra(){
 
 }
 
-/* <div class="btns-shop">
-            <button id="btn-finalizar">Finalizar compra</button>
-            <button id="btn-vaciar-carrito">Vaciar carrito</button>
-            </div> */
+//Vacio lo que hay en el carrito y recargo la pagina
+function vacio()
+{
+  Swal.fire({
+    position: 'top-end',
+    icon: 'info',
+    title: 'Carrito vaciado con exito',
+    showConfirmButton: false,
+  timer: 2000
+}).then(() => {
+    thead.innerHTML = ''
+    tbody.innerHTML = ''
+    parrafoTotal.innerHTML= ''
+    tfoot.innerHTML = ''
+    localStorage.removeItem('carrito')
+      window.location.reload();
+  });
+}
+
+
 
 // Traigo usuario y tambien la seccion para mostrar su contenido dependiendo el tipo de rol del usuario 
  const usuarioCliente = document.querySelector(".cliente");
- const usuarioAdmin = document.querySelector(".admin");
  const usuarioLogueado = document.querySelector(".user-login");
 
 //  Traigo del storage el user logueado para colocarlo en el dashboard y comprobar el tipo de usuario
@@ -345,148 +366,8 @@ const userParseado = JSON.parse(user)
 
 usuarioLogueado.innerText = userParseado
 
-// console.log(usuarioLogueado.textContent)
-
-// Mostrar seccion para permisos que tiene el usuario
-if(usuarioLogueado.textContent === 'admin')
-{
-    console.log(usuarioLogueado.textContent)
-    usuarioCliente.remove()
-}else{
-     usuarioAdmin.remove()
-}
 
 
-// Guardo productos en el carrito
-
-// console.log(carrito) //muestra que el carrito esta vacio
-// const recoverProducts = localStorage.getItem('allProducts')
-// const showProduts = JSON.parse(recoverProducts)
-// const btnAdd = document.querySelector('.btn-add-cart')
-// console.log(document.querySelector('.btn-add-cart'))
-// var claseDelElemento = listItem.className;
-// console.log(claseDelElemento);
-// console.log(showProduts)
-// console.log(addProduct)
-
-// window.onload = function() {
-//   // Seleccionar el elemento utilizando querySelector
-//   let miElemento = document.querySelector(".btn-add-cart");
-//   // Hacer algo con el elemento seleccionado
-//   if (miElemento !== null) {
-//     miElemento.classList.add("nueva-clase");
-//   }
-// };
-// console.log
-
-// console.log(nameProduct)
-  // btnAdd.forEach(add =>{
-  //    add.onClick = () => {
-  //     const addProduct = showProduts.find(p=p.id===parseInt(add.id))
-  //    }
-  //  })
-// Creo la funcion guardar en cada boton
-// const botonesAgregar = document.querySelectorAll('.btn-info')
-// botonesAgregar.forEach(boton=>{
-//     boton.onclick = ()=>{
-//         // const pasaje = pasajes.find(v=v.id===boton.id)
-//          const pasaje = pasajes.find(vuelo=>vuelo.id ===parseInt(boton.id))
-         
-//          const pasajeCarrito = {
-//             id: pasaje.id,
-//             nombre: pasaje.nombre,
-//             img: pasaje.img,
-//             precioxpersona: pasaje.precioxpersona,
-//             cantidad: 1
-//          }
-
-//          const vueloEnCarrito = carrito.find(vuelo=>vuelo.id === pasajeCarrito.id)
-//          if(!vueloEnCarrito)
-//          {
-//             carrito.push(pasajeCarrito)
-//          } else{
-//             vueloEnCarrito.cantidad++
-//          }
-
-//         //  
-//          console.log(carrito)
-        
-//     }
-// })
-
-
-// Boton finalizar la compra
-
-// const botonFinalizar = document.querySelector('#finalizar')
-
-// const thead = document.querySelector('#thead')
-// const tbody = document.querySelector('#tbody')
-// const parrafoTotal = document.querySelector('#total')
-
-
-// botonFinalizar.onclick = ()=>{
-//     thead.innerHTML = 
-//     `<tr>
-//         <th scope="col"></th>
-//         <th scope="col">Destino</th>
-//         <th scope="col">Cantidad</th>
-//         <th scope="col">Subtotal</th>
-//     </tr>`
-
-// let totalCompra = 0
-// carrito.forEach(vuelo => {
-//     totalCompra+= vuelo.cantidad*vuelo.precioxpersona
-//     tbody.innerHTML +=
-//     `<tr>
-//       <td><img class="vuelo-miniatura" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}"></td>
-//       <td class= "text-center">${vuelo.nombre}</td>
-//       <td class= "text-center">${vuelo.cantidad}</td>
-//       <td class= "text-center">${vuelo.cantidad*vuelo.precioxpersona}</td>
-//     </tr>`
-// })
-//  localStorage.setItem('carrito', JSON.stringify(carrito));
-//  parrafoTotal.innerText = `El total de la compra es:    USD ${totalCompra}`
- 
-// }
-
-// const recuperarCarrito = localStorage.getItem('carrito')
-// const carritoMostrar = JSON.parse(recuperarCarrito) 
-
-// console.log(recuperarCarrito)
-// Prueba para ver si muestra en vivo
-   
-        // verCarrito.onclick = ()=>{
-        //     thead.innerHTML = 
-        //     `<tr>
-        //         <th scope="col"></th>
-        //         <th scope="col">Destino</th>
-        //         <th scope="col">Cantidad</th>
-        //         <th scope="col">Subtotal</th>
-        //     </tr>`
-        
-        // let totalCompra = 0
-        // carritoMostrar.forEach(vuelo => {
-        //     totalCompra+= vuelo.cantidad*vuelo.precioxpersona
-        //     tbody.innerHTML +=
-        //     `<tr>
-        //       <td><img class="vuelo-miniatura" src="${vuelo.img}" alt="imagen de vuelo ${vuelo.nombre}"></td>
-        //       <td class= "text-center">${vuelo.nombre}</td>
-        //       <td class= "text-center">${vuelo.cantidad}</td>
-        //       <td class= "text-center">${vuelo.cantidad*vuelo.precioxpersona}</td>
-        //     </tr>`
-        // })
-        
-        //  parrafoTotal.innerText = `El total de la compra es:    USD ${totalCompra}`    
-        // }
-    
-    
-
-    
-    // document.addEventListener("DOMContentLoaded", () => {
-    //     carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    //     mostrarCarrito();
-    //     document.querySelector("#activarFuncion").click(procesarPedido);
-    //   });
 
 
 

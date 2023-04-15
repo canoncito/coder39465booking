@@ -4,30 +4,12 @@ const usuarios = [
         "id" : 1,
         "nombre": "admin",
         "password": "admin123",
-        "tipo": "admin"
+        "tipo": "cliente"
     },
     {
         "id" : 2,
         "nombre": "roberto",
         "password": "rober123",
-        "tipo": "cliente"
-    },
-    {
-        "id" : 3,
-        "nombre": "pepito",
-        "password": "pepito123",
-        "tipo": "cliente"
-    },
-    {
-        "id" : 4,
-        "nombre": "norma",
-        "password": "norma123",
-        "tipo": "cliente"
-    },
-    {
-        "id" : 5,
-        "nombre": "eduardo",
-        "password": "edu123",
         "tipo": "cliente"
     }
 ]
